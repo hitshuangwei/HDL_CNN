@@ -10,6 +10,8 @@
 //==========
 
 class Vconv1__Syms;
+class Vconv1_VerilatedVcd;
+
 
 //----------
 
@@ -22,9 +24,37 @@ VL_MODULE(Vconv1___024root) {
     VL_IN8(cnn_data_in,7,0);
     VL_IN8(cnn_data_in_valid,0,0);
 
+    // LOCAL SIGNALS
+    CData/*4:0*/ conv1__DOT__wr_addr;
+    CData/*4:0*/ conv1__DOT__rd_addr;
+    IData/*31:0*/ conv1__DOT__i;
+    IData/*31:0*/ conv1__DOT__j;
+    VlUnpacked<CData/*7:0*/, 5> conv1__DOT__window_in;
+    VlUnpacked<CData/*7:0*/, 5> conv1__DOT__window_out;
+    VlUnpacked<VlUnpacked<CData/*7:0*/, 5>, 5> conv1__DOT__window;
+    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__0__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__1__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__3__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__4__KET____DOT__graylinebuffer_U__DOT__buffer;
+
     // LOCAL VARIABLES
+    CData/*7:0*/ conv1__DOT____Vcellout__genblk2__BRA__0__KET____DOT__graylinebuffer_U__dout;
+    CData/*7:0*/ conv1__DOT____Vcellout__genblk2__BRA__1__KET____DOT__graylinebuffer_U__dout;
+    CData/*7:0*/ conv1__DOT____Vcellout__genblk2__BRA__2__KET____DOT__graylinebuffer_U__dout;
+    CData/*7:0*/ conv1__DOT____Vcellout__genblk2__BRA__3__KET____DOT__graylinebuffer_U__dout;
+    CData/*7:0*/ conv1__DOT____Vcellout__genblk2__BRA__4__KET____DOT__graylinebuffer_U__dout;
+    CData/*7:0*/ conv1__DOT____Vlvbound1;
+    CData/*7:0*/ conv1__DOT____Vlvbound2;
+    CData/*7:0*/ conv1__DOT__genblk2__BRA__0__KET____DOT__graylinebuffer_U__DOT____Vlvbound1;
+    CData/*7:0*/ conv1__DOT__genblk2__BRA__1__KET____DOT__graylinebuffer_U__DOT____Vlvbound1;
+    CData/*7:0*/ conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT____Vlvbound1;
+    CData/*7:0*/ conv1__DOT__genblk2__BRA__3__KET____DOT__graylinebuffer_U__DOT____Vlvbound1;
+    CData/*7:0*/ conv1__DOT__genblk2__BRA__4__KET____DOT__graylinebuffer_U__DOT____Vlvbound1;
+    CData/*4:0*/ __Vdly__conv1__DOT__wr_addr;
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__rst_n;
+    VlUnpacked<CData/*0:0*/, 5> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
     Vconv1__Syms* vlSymsp;  // Symbol table
