@@ -1,8 +1,10 @@
 #include <stdlib.h>
+#include <vector>
 #include <cstdint>
 #include <assert.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
 #include "Vconv1.h"
@@ -23,18 +25,19 @@ using namespace std;
 //加载图片
 const int IMG_SIZE = 28 * 28;
 
-void load_img(string filePath, uint8_t imgIn[IMG_SIZE]) {
+void load_img(string filePath, vector<uint8_t> imgIn) {
     ifstream inputFile(filePath);
-
-    if (inputFile.is_open()) {
-        for (int i = 0; i < IMG_SIZE; i++) {
-            uint8_t pixelValue;
-            inputFile >> pixelValue;
-            imgIn[i] = pixelValue;
+    if (inputFile.is_open()) {  
+        string line;
+        while (getline(inputFile, line)) {
+            istringstream iss(line);
+            uint8_t value;
+            iss >> value;
+            imgIn.push_back(value);
         }
         inputFile.close();
     } else {
-        cout << "Unable to open file." << endl;
+        cout << "\033[31m" << "Unable to open file." << "\033[0m" << endl;
     }
 }
 // 运行一个周期
@@ -77,12 +80,13 @@ int main(int argc, char** argv, char** env){
     m_trace -> open("waveform.vcd");
 
     //加载图片
-    string filePath = "../image_in.txt";
-    uint8_t imgIn[IMG_SIZE] = {0};  // 28x28大小的图像数组
+    string filePath = "/home/ws/CNN_Verilog/csrc/pixel_values.txt";
+    vector<uint8_t> imgIn;  // 28x28大小的图像向量
+
+    load_img(filePath, imgIn);
     for(int i = 0; i < IMG_SIZE; i++){
-        imgIn[i] = i;
+        cout << "\033[31m" << imgIn[i] << "\033[0m" << endl;
     }
-    //load_img(filePath, imgIn);
 
     //电路复位
     conv_rst();
@@ -94,7 +98,6 @@ int main(int argc, char** argv, char** env){
         //将图像数据加载到电路输入端
         if(i < 28*28){
             dut -> cnn_data_in = imgIn[i];
-            assert(imgIn[40] != 0);
             dut -> eval();
             //m_trace -> dump(sim_time++);
             exec_once();
