@@ -24,22 +24,28 @@ using namespace std;
 //========================== Functions ===========================
 //加载图片
 const int IMG_SIZE = 28 * 28;
-
-void load_img(string filePath, vector<uint8_t> imgIn) {
-    ifstream inputFile(filePath);
-    if (inputFile.is_open()) {  
-        string line;
-        while (getline(inputFile, line)) {
-            istringstream iss(line);
-            uint8_t value;
-            iss >> value;
-            imgIn.push_back(value);
-        }
-        inputFile.close();
-    } else {
-        cout << "\033[31m" << "Unable to open file." << "\033[0m" << endl;
+vector<double> load_img(const string& Filepath){
+    
+    double x;
+    ifstream inFile;
+    vector<double> im;
+    
+    inFile.open(Filepath);
+    if (!inFile) {
+        cout << "\033[1;31m" << "Unable to open file" << "\033[0m" << endl;
+        exit(1); // terminate with error
     }
+    
+    while (inFile >> x) {
+        //cout << x << endl;
+        im.push_back(x);
+    }
+    
+    inFile.close();
+
+    return im;
 }
+
 // 运行一个周期
 void exec_once(){
     dut -> clk ^= 1;
@@ -80,12 +86,11 @@ int main(int argc, char** argv, char** env){
     m_trace -> open("waveform.vcd");
 
     //加载图片
-    string filePath = "/home/ws/CNN_Verilog/csrc/pixel_values.txt";
-    vector<uint8_t> imgIn;  // 28x28大小的图像向量
+    vector<double> imgIn;  // 28x28大小的图像向量
 
-    load_img(filePath, imgIn);
-    for(int i = 0; i < IMG_SIZE; i++){
-        cout << "\033[31m" << imgIn[i] << "\033[0m" << endl;
+    imgIn=load_img("/home/ws/CNN_Verilog/csrc/pixel_values.txt");
+    for(int j = 0; j < IMG_SIZE; j++){
+        cout << imgIn[j] << endl;
     }
 
     //电路复位
@@ -93,10 +98,10 @@ int main(int argc, char** argv, char** env){
     
     //主循环
     int i=0;
-    while (sim_time < MAX_TIME)
+    while (1)
     {   
         //将图像数据加载到电路输入端
-        if(i < 28*28){
+        if(i < IMG_SIZE){
             dut -> cnn_data_in = imgIn[i];
             dut -> eval();
             //m_trace -> dump(sim_time++);
