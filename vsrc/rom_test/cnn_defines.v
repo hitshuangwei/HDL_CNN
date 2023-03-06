@@ -6,6 +6,4 @@
 `define CNN_KERNEL_SIZE 25 /* 卷积核5*5 */
 `define CNN_PARA_WIDTH 16 /* 量化后参数16位定点数 */
 
-`define CNN_BIAS_SIZE 6 /* 偏置6通道 */
-
 
