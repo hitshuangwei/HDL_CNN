@@ -120,7 +120,8 @@ always@(posedge clk, negedge rst_n)begin
 end
 //======================= weights =======================
 wire c1_w_rd_en;
-assign  c1_w_rd_en = (cnn_data_in_valid && y_cnt==0)? 1'b1 : 1'b0;
+/*assign  c1_w_rd_en = (cnn_data_in_valid && y_cnt==0)? 1'b1 : 1'b0; */
+assign c1_w_rd_en = 1'b1;
 
 wire    [15:0] rd_c1_w_1_data;
 wire    [15:0] rd_c1_w_2_data;
@@ -139,51 +140,53 @@ reg   signed  [15:0]  c1_w_6[4:0][4:0];
 /*reg   signed  [15:0]  c1_b[5:0];/* 6个通道6个 */
 
 weights_rom#("/home/ws/CNN_Verilog/vsrc/kernel.txt") weights_rom_u1(
-.clk      (clk              ),  
 .rom_r_en (c1_w_rd_en       ),
-.rom_raddr(x_cnt            ),
+.rom_raddr(rom_cnt            ),
 .rom_dout (rd_c1_w_1_data   ) 
 );
 weights_rom#("/home/ws/CNN_Verilog/vsrc/kernel.txt") weights_rom_u2(
-.clk      (clk              ),  
 .rom_r_en (c1_w_rd_en       ),
-.rom_raddr(x_cnt            ),
+.rom_raddr(rom_cnt            ),
 .rom_dout (rd_c1_w_2_data   ) 
 );
 weights_rom#("/home/ws/CNN_Verilog/vsrc/kernel.txt") weights_rom_u3(
-.clk      (clk              ),  
 .rom_r_en (c1_w_rd_en       ),
-.rom_raddr(x_cnt            ),
+.rom_raddr(rom_cnt            ),
 .rom_dout (rd_c1_w_3_data   ) 
 );
 weights_rom#("/home/ws/CNN_Verilog/vsrc/kernel.txt") weights_rom_u4(
-.clk      (clk              ),  
 .rom_r_en (c1_w_rd_en       ),
-.rom_raddr(x_cnt            ),
+.rom_raddr(rom_cnt            ),
 .rom_dout (rd_c1_w_4_data   ) 
 );
 weights_rom#("/home/ws/CNN_Verilog/vsrc/kernel.txt") weights_rom_u5(
-.clk      (clk              ),  
 .rom_r_en (c1_w_rd_en       ),
-.rom_raddr(x_cnt            ),
+.rom_raddr(rom_cnt            ),
 .rom_dout (rd_c1_w_5_data   ) 
 );
 weights_rom#("/home/ws/CNN_Verilog/vsrc/kernel.txt") weights_rom_u6(
-.clk      (clk              ),  
 .rom_r_en (c1_w_rd_en       ),
-.rom_raddr(x_cnt            ),
+.rom_raddr(rom_cnt            ),
 .rom_dout (rd_c1_w_6_data   ) 
 );
+reg [4:0] rom_cnt;
+
+always@(posedge clk, negedge rst_n)begin
+    if(~rst_n)
+        rom_cnt <= 0;
+    else if(rom_cnt == 5'd24 && cnn_data_in_valid == 1'b1)
+        rom_cnt <=0 ;
+    else if(cnn_data_in_valid == 1'b1)
+        rom_cnt <= rom_cnt + 1'b1;
+end
 always@(*)begin
-    if(y_cnt==0)begin
-        c1_w_1[(x_cnt-1)/5][(x_cnt-1)%5] = rd_c1_w_1_data;
-        c1_w_2[(x_cnt-1)/5][(x_cnt-1)%5] = rd_c1_w_2_data;
-        c1_w_3[(x_cnt-1)/5][(x_cnt-1)%5] = rd_c1_w_3_data;
-        c1_w_4[(x_cnt-1)/5][(x_cnt-1)%5] = rd_c1_w_4_data;
-        c1_w_5[(x_cnt-1)/5][(x_cnt-1)%5] = rd_c1_w_5_data;
-        c1_w_6[(x_cnt-1)/5][(x_cnt-1)%5] = rd_c1_w_6_data;
+        c1_w_1[(rom_cnt)/5][(rom_cnt)%5] = rd_c1_w_1_data;
+        c1_w_2[(rom_cnt)/5][(rom_cnt)%5] = rd_c1_w_2_data;
+        c1_w_3[(rom_cnt)/5][(rom_cnt)%5] = rd_c1_w_3_data;
+        c1_w_4[(rom_cnt)/5][(rom_cnt)%5] = rd_c1_w_4_data;
+        c1_w_5[(rom_cnt)/5][(rom_cnt)%5] = rd_c1_w_5_data;
+        c1_w_6[(rom_cnt)/5][(rom_cnt)%5] = rd_c1_w_6_data;
         /*c1_b[(x_cnt-1)] = rd_c1_b_data;*/
-    end
 end
 //======================= mul  =======================
 reg signed[31:0]  window_mul_result_1[4:0][4:0];

@@ -23,15 +23,45 @@ VL_MODULE(Vconv1___024root) {
     VL_IN8(rst_n,0,0);
     VL_IN8(cnn_data_in,7,0);
     VL_IN8(cnn_data_in_valid,0,0);
+    VL_OUT8(cnn_data_out_valid,0,0);
+    VL_OUTW(cnn_data_out,191,0,6);
 
     // LOCAL SIGNALS
     CData/*4:0*/ conv1__DOT__wr_addr;
     CData/*4:0*/ conv1__DOT__rd_addr;
+    CData/*4:0*/ conv1__DOT__x_cnt;
+    CData/*4:0*/ conv1__DOT__y_cnt;
+    CData/*4:0*/ conv1__DOT__rom_cnt;
+    CData/*0:0*/ conv1__DOT__delay_data_out_valid_o;
     IData/*31:0*/ conv1__DOT__i;
     IData/*31:0*/ conv1__DOT__j;
+    IData/*31:0*/ conv1__DOT__window_sum_1;
+    IData/*31:0*/ conv1__DOT__window_sum_2;
+    IData/*31:0*/ conv1__DOT__window_sum_3;
+    IData/*31:0*/ conv1__DOT__window_sum_4;
+    IData/*31:0*/ conv1__DOT__window_sum_5;
+    IData/*31:0*/ conv1__DOT__window_sum_6;
     VlUnpacked<CData/*7:0*/, 5> conv1__DOT__window_in;
     VlUnpacked<CData/*7:0*/, 5> conv1__DOT__window_out;
     VlUnpacked<VlUnpacked<CData/*7:0*/, 5>, 5> conv1__DOT__window;
+    VlUnpacked<VlUnpacked<SData/*15:0*/, 5>, 5> conv1__DOT__c1_w_1;
+    VlUnpacked<VlUnpacked<SData/*15:0*/, 5>, 5> conv1__DOT__c1_w_2;
+    VlUnpacked<VlUnpacked<SData/*15:0*/, 5>, 5> conv1__DOT__c1_w_3;
+    VlUnpacked<VlUnpacked<SData/*15:0*/, 5>, 5> conv1__DOT__c1_w_4;
+    VlUnpacked<VlUnpacked<SData/*15:0*/, 5>, 5> conv1__DOT__c1_w_5;
+    VlUnpacked<VlUnpacked<SData/*15:0*/, 5>, 5> conv1__DOT__c1_w_6;
+    VlUnpacked<VlUnpacked<IData/*31:0*/, 5>, 5> conv1__DOT__window_mul_result_1;
+    VlUnpacked<VlUnpacked<IData/*31:0*/, 5>, 5> conv1__DOT__window_mul_result_2;
+    VlUnpacked<VlUnpacked<IData/*31:0*/, 5>, 5> conv1__DOT__window_mul_result_3;
+    VlUnpacked<VlUnpacked<IData/*31:0*/, 5>, 5> conv1__DOT__window_mul_result_4;
+    VlUnpacked<VlUnpacked<IData/*31:0*/, 5>, 5> conv1__DOT__window_mul_result_5;
+    VlUnpacked<VlUnpacked<IData/*31:0*/, 5>, 5> conv1__DOT__window_mul_result_6;
+    VlUnpacked<SData/*15:0*/, 25> conv1__DOT__weights_rom_u1__DOT__para_rom;
+    VlUnpacked<SData/*15:0*/, 25> conv1__DOT__weights_rom_u2__DOT__para_rom;
+    VlUnpacked<SData/*15:0*/, 25> conv1__DOT__weights_rom_u3__DOT__para_rom;
+    VlUnpacked<SData/*15:0*/, 25> conv1__DOT__weights_rom_u4__DOT__para_rom;
+    VlUnpacked<SData/*15:0*/, 25> conv1__DOT__weights_rom_u5__DOT__para_rom;
+    VlUnpacked<SData/*15:0*/, 25> conv1__DOT__weights_rom_u6__DOT__para_rom;
     VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__0__KET____DOT__graylinebuffer_U__DOT__buffer;
     VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__1__KET____DOT__graylinebuffer_U__DOT__buffer;
     VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT__buffer;
@@ -51,9 +81,14 @@ VL_MODULE(Vconv1___024root) {
     CData/*7:0*/ conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT____Vlvbound1;
     CData/*7:0*/ conv1__DOT__genblk2__BRA__3__KET____DOT__graylinebuffer_U__DOT____Vlvbound1;
     CData/*7:0*/ conv1__DOT__genblk2__BRA__4__KET____DOT__graylinebuffer_U__DOT____Vlvbound1;
-    CData/*4:0*/ __Vdly__conv1__DOT__wr_addr;
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__rst_n;
+    IData/*31:0*/ conv1__DOT____Vlvbound10;
+    IData/*31:0*/ conv1__DOT____Vlvbound11;
+    IData/*31:0*/ conv1__DOT____Vlvbound12;
+    IData/*31:0*/ conv1__DOT____Vlvbound13;
+    IData/*31:0*/ conv1__DOT____Vlvbound14;
+    IData/*31:0*/ conv1__DOT____Vlvbound15;
     VlUnpacked<CData/*0:0*/, 5> __Vm_traceActivity;
 
     // INTERNAL VARIABLES

@@ -5,13 +5,11 @@ module weights_rom
     FILE_NAME = "file.txt"
 )
 (
-    clk         ,
     rom_r_en    ,
     rom_raddr   ,
     rom_dout    
     
 );
-    input                               clk         ;
     input                               rom_r_en    ;
     input       [4:0]                   rom_raddr   ;
     output reg  [`CNN_PARA_WIDTH-1:0]   rom_dout    ;
@@ -24,10 +22,10 @@ module weights_rom
     end
 
     /* 读rom */
-    always@(posedge clk ) begin
+    always@(*) begin
         if(rom_r_en)
-            rom_dout <= para_rom[rom_raddr];
+            rom_dout = para_rom[rom_raddr];
         else
-            rom_dout <= `CNN_PARA_WIDTH'd0;
+            rom_dout = `CNN_PARA_WIDTH'd0;
     end
 endmodule

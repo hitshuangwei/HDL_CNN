@@ -11,7 +11,7 @@
 
 using namespace std;
 
-#define MAX_TIME 1000
+#define MAX_TIME 2000
 
 
 // ========================= Environment =========================
@@ -23,7 +23,7 @@ using namespace std;
     vluint64_t sim_time = 0;
 //========================== Functions ===========================
 //加载图片
-const int IMG_SIZE = 28 * 28;
+const int IMG_SIZE = 784;
 vector<double> load_img(const string& Filepath){
     
     double x;
@@ -88,9 +88,9 @@ int main(int argc, char** argv, char** env){
     //加载图片
     vector<double> imgIn;  // 28x28大小的图像向量
 
-    imgIn=load_img("/home/ws/CNN_Verilog/csrc/pixel_values.txt");
+    imgIn=load_img("/home/ws/CNN_Verilog/csrc/matrix.txt");
     for(int j = 0; j < IMG_SIZE; j++){
-        cout << imgIn[j] << endl;
+        cout << imgIn[j] <<  endl;
     }
 
     //电路复位
@@ -98,10 +98,10 @@ int main(int argc, char** argv, char** env){
     
     //主循环
     int i=0;
-    while (1)
+    while (sim_time < MAX_TIME)
     {   
         //将图像数据加载到电路输入端
-        if(i < IMG_SIZE){
+        if(i <= IMG_SIZE){
             dut -> cnn_data_in = imgIn[i];
             dut -> eval();
             //m_trace -> dump(sim_time++);
@@ -109,9 +109,11 @@ int main(int argc, char** argv, char** env){
             i++;
         }
         else{
-            m_trace -> close();
-            delete dut;
-            exit(EXIT_SUCCESS);
+            dut -> cnn_data_in = 0;
+            dut -> eval();
+            //m_trace -> dump(sim_time++);
+            exec_once();
+            i++;
         }
     }
 

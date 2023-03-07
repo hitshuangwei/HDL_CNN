@@ -14,6 +14,8 @@ Vconv1::Vconv1(VerilatedContext* _vcontextp__, const char* _vcname__)
     , rst_n{vlSymsp->TOP.rst_n}
     , cnn_data_in{vlSymsp->TOP.cnn_data_in}
     , cnn_data_in_valid{vlSymsp->TOP.cnn_data_in_valid}
+    , cnn_data_out{vlSymsp->TOP.cnn_data_out}
+    , cnn_data_out_valid{vlSymsp->TOP.cnn_data_out_valid}
     , rootp{&(vlSymsp->TOP)}
 {
 }
@@ -60,7 +62,7 @@ static void _eval_initial_loop(Vconv1__Syms* __restrict vlSymsp) {
             Verilated::debug(1);
             __Vchange = Vconv1___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("vsrc/conv1.v", 3, "",
+            VL_FATAL_MT("vsrc/conv1.v", 4, "",
                 "Verilated model didn't DC converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
@@ -91,7 +93,7 @@ void Vconv1::eval_step() {
             Verilated::debug(1);
             __Vchange = Vconv1___024root___change_request(&(vlSymsp->TOP));
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("vsrc/conv1.v", 3, "",
+            VL_FATAL_MT("vsrc/conv1.v", 4, "",
                 "Verilated model didn't converge\n"
                 "- See https://verilator.org/warn/DIDNOTCONVERGE");
         } else {
