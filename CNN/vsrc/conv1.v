@@ -56,24 +56,24 @@ module conv1(
     genvar k;
     generate
     for(k = 1; k < 5; k = k + 1)begin
-       assign window_in[k] = window_out[k-1];
+        assign window_in[k] = window_out[k-1];
     end
     endgenerate
-    
-    
+
+
     //======================= Instance ===============================
-    
+
     generate
     for (k = 0; k < 5; k = k + 1)begin
     graylinebuffer graylinebuffer_U (
-        .clkw (clk              ), 
-        .w_en (cnn_data_in_valid), 
-        .waddr(wr_addr          ), 
-        .din  (window_in[k]     ), 
-        .clkr (clk              ), 
-        .r_en (1'b1             ), 
-        .raddr(rd_addr          ), 
-        .dout (window_out[k]    ) 
+        .clkw (clk              ),
+        .w_en (cnn_data_in_valid),
+        .waddr(wr_addr          ),
+        .din  (window_in[k]     ),
+        .clkr (clk              ),
+        .r_en (1'b1             ),
+        .raddr(rd_addr          ),
+        .dout (window_out[k]    )
     );
     end
     endgenerate
@@ -100,7 +100,7 @@ module conv1(
 //======================= x_cnt y_cnt ====================
     reg [4:0] x_cnt;
     reg [4:0] y_cnt;
-    
+
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)
             x_cnt <= 0;
@@ -109,7 +109,7 @@ module conv1(
         else if(cnn_data_in_valid == 1'b1)
             x_cnt <= x_cnt + 1'b1;
     end
-    
+
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)
             y_cnt <= 0;
@@ -122,7 +122,7 @@ module conv1(
     wire c1_w_rd_en;
     /*assign  c1_w_rd_en = (cnn_data_in_valid && y_cnt==0)? 1'b1 : 1'b0; */
     assign c1_w_rd_en = 1'b1;
-    
+
     wire    [15:0] rd_c1_w_1_data;
     wire    [15:0] rd_c1_w_2_data;
     wire    [15:0] rd_c1_w_3_data;
@@ -130,7 +130,7 @@ module conv1(
     wire    [15:0] rd_c1_w_5_data;
     wire    [15:0] rd_c1_w_6_data;
     /*wire    [15:0] rd_c1_b_data;*/
-    
+
     reg   signed  [15:0]  c1_w_1[4:0][4:0];
     reg   signed  [15:0]  c1_w_2[4:0][4:0];
     reg   signed  [15:0]  c1_w_3[4:0][4:0];
@@ -138,41 +138,41 @@ module conv1(
     reg   signed  [15:0]  c1_w_5[4:0][4:0];
     reg   signed  [15:0]  c1_w_6[4:0][4:0];
     /*reg   signed  [15:0]  c1_b[5:0];/* 6个通道6个 */
-    
+
     weights_rom#("/home/ws/CNN_Verilog/CNN/vsrc/kernel.txt") weights_rom_u1(
     .rom_r_en (c1_w_rd_en       ),
     .rom_raddr(rom_cnt          ),
-    .rom_dout (rd_c1_w_1_data   ) 
+    .rom_dout (rd_c1_w_1_data   )
     );
     weights_rom#("/home/ws/CNN_Verilog/CNN/vsrc/kernel.txt") weights_rom_u2(
     .rom_r_en (c1_w_rd_en       ),
     .rom_raddr(rom_cnt          ),
-    .rom_dout (rd_c1_w_2_data   ) 
+    .rom_dout (rd_c1_w_2_data   )
     );
     weights_rom#("/home/ws/CNN_Verilog/CNN/vsrc/kernel.txt") weights_rom_u3(
     .rom_r_en (c1_w_rd_en       ),
     .rom_raddr(rom_cnt          ),
-    .rom_dout (rd_c1_w_3_data   ) 
+    .rom_dout (rd_c1_w_3_data   )
     );
     weights_rom#("/home/ws/CNN_Verilog/CNN/vsrc/kernel.txt") weights_rom_u4(
     .rom_r_en (c1_w_rd_en       ),
     .rom_raddr(rom_cnt          ),
-    .rom_dout (rd_c1_w_4_data   ) 
+    .rom_dout (rd_c1_w_4_data   )
     );
     weights_rom#("/home/ws/CNN_Verilog/CNN/vsrc/kernel.txt") weights_rom_u5(
     .rom_r_en (c1_w_rd_en       ),
     .rom_raddr(rom_cnt          ),
-    .rom_dout (rd_c1_w_5_data   ) 
+    .rom_dout (rd_c1_w_5_data   )
     );
     weights_rom#("/home/ws/CNN_Verilog/CNN/vsrc/kernel.txt") weights_rom_u6(
     .rom_r_en (c1_w_rd_en       ),
     .rom_raddr(rom_cnt          ),
-    .rom_dout (rd_c1_w_6_data   ) 
+    .rom_dout (rd_c1_w_6_data   )
     );
-    
+
     /* 对卷积核权重寄存器赋值 */
     reg [4:0] rom_cnt;
-    
+
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)
             rom_cnt <= 0;
@@ -197,7 +197,7 @@ module conv1(
     reg signed[31:0]  window_mul_result_4[4:0][4:0];
     reg signed[31:0]  window_mul_result_5[4:0][4:0];
     reg signed[31:0]  window_mul_result_6[4:0][4:0];
-    
+
     always@(posedge clk,negedge rst_n)begin
         if(~rst_n)begin
             for(i=0;i<5;i=i+1)begin
@@ -212,7 +212,7 @@ module conv1(
             end
         end
         else begin
-             for(i=0;i<5;i=i+1)begin
+            for(i=0;i<5;i=i+1)begin
                 for(j=0;j<5;j=j+1)begin
                         window_mul_result_1[i][j] <={ { 24{1'b0} }, window[i][j] } * { {16{c1_w_1[i][j][15]}},  c1_w_1[i][j] };
                         window_mul_result_2[i][j] <={ { 24{1'b0} }, window[i][j] } * { {16{c1_w_2[i][j][15]}},  c1_w_2[i][j] };
@@ -221,54 +221,54 @@ module conv1(
                         window_mul_result_5[i][j] <={ { 24{1'b0} }, window[i][j] } * { {16{c1_w_5[i][j][15]}},  c1_w_5[i][j] };
                         window_mul_result_6[i][j] <={ { 24{1'b0} }, window[i][j] } * { {16{c1_w_6[i][j][15]}},  c1_w_6[i][j] };
                 end
-            end    
+            end
         end
     end
-        
-    wire [31:0] window_sum_1; 
-    wire [31:0] window_sum_2; 
-    wire [31:0] window_sum_3; 
-    wire [31:0] window_sum_4; 
-    wire [31:0] window_sum_5; 
-    wire [31:0] window_sum_6; 
+
+    wire [31:0] window_sum_1;
+    wire [31:0] window_sum_2;
+    wire [31:0] window_sum_3;
+    wire [31:0] window_sum_4;
+    wire [31:0] window_sum_5;
+    wire [31:0] window_sum_6;
     //========================== lut ========================================
     assign window_sum_1 = window_mul_result_1[0][0]+window_mul_result_1[0][1]+window_mul_result_1[0][2]+window_mul_result_1[0][3]+window_mul_result_1[0][4]+
                                                   window_mul_result_1[1][0]+window_mul_result_1[1][1]+window_mul_result_1[1][2]+window_mul_result_1[1][3]+window_mul_result_1[1][4]+
                                                   window_mul_result_1[2][0]+window_mul_result_1[2][1]+window_mul_result_1[2][2]+window_mul_result_1[2][3]+window_mul_result_1[2][4]+
                                                   window_mul_result_1[3][0]+window_mul_result_1[3][1]+window_mul_result_1[3][2]+window_mul_result_1[3][3]+window_mul_result_1[3][4]+
                                                   window_mul_result_1[4][0]+window_mul_result_1[4][1]+window_mul_result_1[4][2]+window_mul_result_1[4][3]+window_mul_result_1[4][4];
-    
+
     assign window_sum_2 = window_mul_result_2[0][0]+window_mul_result_2[0][1]+window_mul_result_2[0][2]+window_mul_result_2[0][3]+window_mul_result_2[0][4]+
                                                   window_mul_result_2[1][0]+window_mul_result_2[1][1]+window_mul_result_2[1][2]+window_mul_result_2[1][3]+window_mul_result_2[1][4]+
                                                   window_mul_result_2[2][0]+window_mul_result_2[2][1]+window_mul_result_2[2][2]+window_mul_result_2[2][3]+window_mul_result_2[2][4]+
                                                   window_mul_result_2[3][0]+window_mul_result_2[3][1]+window_mul_result_2[3][2]+window_mul_result_2[3][3]+window_mul_result_2[3][4]+
                                                   window_mul_result_2[4][0]+window_mul_result_2[4][1]+window_mul_result_2[4][2]+window_mul_result_2[4][3]+window_mul_result_2[4][4];
-    
+
     assign window_sum_3 = window_mul_result_3[0][0]+window_mul_result_3[0][1]+window_mul_result_3[0][2]+window_mul_result_3[0][3]+window_mul_result_3[0][4]+
                                                   window_mul_result_3[1][0]+window_mul_result_3[1][1]+window_mul_result_3[1][2]+window_mul_result_3[1][3]+window_mul_result_3[1][4]+
                                                   window_mul_result_3[2][0]+window_mul_result_3[2][1]+window_mul_result_3[2][2]+window_mul_result_3[2][3]+window_mul_result_3[2][4]+
                                                   window_mul_result_3[3][0]+window_mul_result_3[3][1]+window_mul_result_3[3][2]+window_mul_result_3[3][3]+window_mul_result_3[3][4]+
                                                   window_mul_result_3[4][0]+window_mul_result_3[4][1]+window_mul_result_3[4][2]+window_mul_result_3[4][3]+window_mul_result_3[4][4];
-    
+
     assign window_sum_4 = window_mul_result_4[0][0]+window_mul_result_4[0][1]+window_mul_result_4[0][2]+window_mul_result_4[0][3]+window_mul_result_4[0][4]+
                                                   window_mul_result_4[1][0]+window_mul_result_4[1][1]+window_mul_result_4[1][2]+window_mul_result_4[1][3]+window_mul_result_4[1][4]+
                                                   window_mul_result_4[2][0]+window_mul_result_4[2][1]+window_mul_result_4[2][2]+window_mul_result_4[2][3]+window_mul_result_4[2][4]+
                                                   window_mul_result_4[3][0]+window_mul_result_4[3][1]+window_mul_result_4[3][2]+window_mul_result_4[3][3]+window_mul_result_4[3][4]+
                                                   window_mul_result_4[4][0]+window_mul_result_4[4][1]+window_mul_result_4[4][2]+window_mul_result_4[4][3]+window_mul_result_4[4][4];
-    
+
     assign window_sum_5 = window_mul_result_5[0][0]+window_mul_result_5[0][1]+window_mul_result_5[0][2]+window_mul_result_5[0][3]+window_mul_result_5[0][4]+
                                                   window_mul_result_5[1][0]+window_mul_result_5[1][1]+window_mul_result_5[1][2]+window_mul_result_5[1][3]+window_mul_result_5[1][4]+
                                                   window_mul_result_5[2][0]+window_mul_result_5[2][1]+window_mul_result_5[2][2]+window_mul_result_5[2][3]+window_mul_result_5[2][4]+
                                                   window_mul_result_5[3][0]+window_mul_result_5[3][1]+window_mul_result_5[3][2]+window_mul_result_5[3][3]+window_mul_result_5[3][4]+
                                                   window_mul_result_5[4][0]+window_mul_result_5[4][1]+window_mul_result_5[4][2]+window_mul_result_5[4][3]+window_mul_result_5[4][4];
-    
+
     assign window_sum_6 = window_mul_result_6[0][0]+window_mul_result_6[0][1]+window_mul_result_6[0][2]+window_mul_result_6[0][3]+window_mul_result_6[0][4]+
                                                   window_mul_result_6[1][0]+window_mul_result_6[1][1]+window_mul_result_6[1][2]+window_mul_result_6[1][3]+window_mul_result_6[1][4]+
                                                   window_mul_result_6[2][0]+window_mul_result_6[2][1]+window_mul_result_6[2][2]+window_mul_result_6[2][3]+window_mul_result_6[2][4]+
                                                   window_mul_result_6[3][0]+window_mul_result_6[3][1]+window_mul_result_6[3][2]+window_mul_result_6[3][3]+window_mul_result_6[3][4]+
                                                   window_mul_result_6[4][0]+window_mul_result_6[4][1]+window_mul_result_6[4][2]+window_mul_result_6[4][3]+window_mul_result_6[4][4];
-    
-    
+
+
     assign cnn_data_out = {
     (window_sum_6[31]==0)?window_sum_6:0,
     (window_sum_5[31]==0)?window_sum_5:0,
@@ -277,7 +277,7 @@ module conv1(
     (window_sum_2[31]==0)?window_sum_2:0,
     (window_sum_1[31]==0)?window_sum_1:0
     };
-    
+
     wire data_out_valid_o = (x_cnt>=4&&y_cnt>=4)?1'b1:1'b0;
     reg delay_data_out_valid_o;
     always@(posedge clk)begin
