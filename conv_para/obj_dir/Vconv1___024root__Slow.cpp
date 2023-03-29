@@ -25,17 +25,14 @@ void Vconv1___024root::__Vconfigure(Vconv1__Syms* _vlSymsp, bool first) {
 Vconv1___024root::~Vconv1___024root() {
 }
 
+extern const VlWide<12>/*383:0*/ Vconv1__ConstPool__CONST_1dbef1e8_0;
+
 void Vconv1___024root___initial__TOP__1(Vconv1___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vconv1__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vconv1___024root___initial__TOP__1\n"); );
-    // Variables
-    VlWide<3>/*95:0*/ __Vtemp1;
     // Body
-    __Vtemp1[0U] = 0x2e747874U;
-    __Vtemp1[1U] = 0x726e656cU;
-    __Vtemp1[2U] = 0x6b65U;
-    VL_READMEM_N(true, 16, 25, 0, VL_CVT_PACK_STR_NW(3, __Vtemp1)
+    VL_READMEM_N(true, 16, 25, 0, VL_CVT_PACK_STR_NW(12, Vconv1__ConstPool__CONST_1dbef1e8_0)
                  ,  &(vlSelf->conv1__DOT__weights_rom_u1__DOT__para_rom)
                  , 0, ~0ULL);
 }

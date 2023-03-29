@@ -126,7 +126,7 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBus(c+261,"conv1 window_sum_1", false,-1, 31,0);
         tracep->declBit(c+262,"conv1 data_out_valid_o", false,-1);
         tracep->declBit(c+31,"conv1 delay_data_out_valid_o", false,-1);
-        tracep->declArray(c+280,"conv1 weights_rom_u1 FILE_NAME", false,-1, 79,0);
+        tracep->declArray(c+280,"conv1 weights_rom_u1 FILE_NAME", false,-1, 367,0);
         tracep->declBit(c+279,"conv1 weights_rom_u1 rom_r_en", false,-1);
         tracep->declBus(c+235,"conv1 weights_rom_u1 rom_raddr", false,-1, 4,0);
         tracep->declBus(c+209,"conv1 weights_rom_u1 rom_dout", false,-1, 15,0);
@@ -211,10 +211,11 @@ void Vconv1___024root__traceFullTop0(void* voidSelf, VerilatedVcd* tracep) {
     }
 }
 
+extern const VlWide<12>/*383:0*/ Vconv1__ConstPool__CONST_1dbef1e8_0;
+
 void Vconv1___024root__traceFullSub0(Vconv1___024root* vlSelf, VerilatedVcd* tracep) {
     if (false && vlSelf) {}  // Prevent unused
     Vconv1__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VlWide<3>/*95:0*/ __Vtemp2;
     vluint32_t* const oldp = tracep->oldp(vlSymsp->__Vm_baseCode);
     if (false && oldp) {}  // Prevent unused
     // Body
@@ -583,9 +584,6 @@ void Vconv1___024root__traceFullSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->fullIData(oldp+277,(vlSelf->cnn_data_out),32);
         tracep->fullBit(oldp+278,(vlSelf->cnn_data_out_valid));
         tracep->fullBit(oldp+279,(1U));
-        __Vtemp2[0U] = 0x2e747874U;
-        __Vtemp2[1U] = 0x726e656cU;
-        __Vtemp2[2U] = 0x6b65U;
-        tracep->fullWData(oldp+280,(__Vtemp2),80);
+        tracep->fullWData(oldp+280,(Vconv1__ConstPool__CONST_1dbef1e8_0),368);
     }
 }
