@@ -394,8 +394,9 @@ void Vconv1___024root__traceChgSub0(Vconv1___024root* vlSelf, VerilatedVcd* trac
         tracep->chgBit(oldp+273,(vlSelf->rst_n));
         tracep->chgCData(oldp+274,(vlSelf->cnn_data_in),8);
         tracep->chgBit(oldp+275,(vlSelf->cnn_data_in_valid));
-        tracep->chgIData(oldp+276,(vlSelf->cnn_data_out),32);
-        tracep->chgBit(oldp+277,(vlSelf->cnn_data_out_valid));
+        tracep->chgBit(oldp+276,(vlSelf->img_in_en));
+        tracep->chgIData(oldp+277,(vlSelf->cnn_data_out),32);
+        tracep->chgBit(oldp+278,(vlSelf->cnn_data_out_valid));
     }
 }
 

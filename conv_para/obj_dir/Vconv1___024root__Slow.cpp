@@ -199,6 +199,7 @@ void Vconv1___024root___ctor_var_reset(Vconv1___024root* vlSelf) {
     vlSelf->rst_n = VL_RAND_RESET_I(1);
     vlSelf->cnn_data_in = VL_RAND_RESET_I(8);
     vlSelf->cnn_data_in_valid = VL_RAND_RESET_I(1);
+    vlSelf->img_in_en = VL_RAND_RESET_I(1);
     vlSelf->cnn_data_out = VL_RAND_RESET_I(32);
     vlSelf->cnn_data_out_valid = VL_RAND_RESET_I(1);
     vlSelf->conv1__DOT__wr_addr = VL_RAND_RESET_I(5);

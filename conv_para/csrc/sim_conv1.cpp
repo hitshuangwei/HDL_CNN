@@ -25,22 +25,22 @@ using namespace std;
 //加载图片
 const int IMG_SIZE = 784;
 vector<double> load_img(const string& Filepath){
-    
+
     double x;
     ifstream inFile;
     vector<double> im;
-    
+
     inFile.open(Filepath);
     if (!inFile) {
         cout << "\033[1;31m" << "Unable to open file" << "\033[0m" << endl;
         exit(1); // terminate with error
     }
-    
+
     while (inFile >> x) {
         //cout << x << endl;
         im.push_back(x);
     }
-    
+
     inFile.close();
 
     return im;
@@ -95,24 +95,24 @@ int main(int argc, char** argv, char** env){
 
     //电路复位
     conv_rst();
-    
+    //图片加载使能信号
+    dut -> img_in_en = 1;
     //主循环
     int i=0;
     while (sim_time < MAX_TIME)
-    {   
+    {
         //将图像数据加载到电路输入端
-        if(i <= IMG_SIZE){
+        if(i < IMG_SIZE){
             dut -> cnn_data_in = imgIn[i];
             dut -> eval();
-            //m_trace -> dump(sim_time++);
             exec_once();
             i++;
         }
         else{
             dut -> cnn_data_in = 0;
             dut -> eval();
-            //m_trace -> dump(sim_time++);
             exec_once();
+            dut -> img_in_en = 0;
             i++;
         }
     }

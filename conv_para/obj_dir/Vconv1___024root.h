@@ -23,6 +23,7 @@ VL_MODULE(Vconv1___024root) {
     VL_IN8(rst_n,0,0);
     VL_IN8(cnn_data_in,7,0);
     VL_IN8(cnn_data_in_valid,0,0);
+    VL_IN8(img_in_en,0,0);
     VL_OUT8(cnn_data_out_valid,0,0);
     VL_OUT(cnn_data_out,31,0);
 

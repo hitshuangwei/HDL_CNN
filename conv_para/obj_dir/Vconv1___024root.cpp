@@ -263,14 +263,14 @@ VL_INLINE_OPT void Vconv1___024root___sequent__TOP__3(Vconv1___024root* vlSelf) 
     vlSelf->conv1__DOT__j = 5U;
     vlSelf->conv1__DOT__i = 5U;
     if (vlSelf->rst_n) {
-        if (vlSelf->cnn_data_in_valid) {
+        if (((IData)(vlSelf->cnn_data_in_valid) & (IData)(vlSelf->img_in_en))) {
             vlSelf->conv1__DOT__j = 5U;
         }
     } else {
         vlSelf->conv1__DOT__j = 5U;
     }
     if (vlSelf->rst_n) {
-        if (vlSelf->cnn_data_in_valid) {
+        if (((IData)(vlSelf->cnn_data_in_valid) & (IData)(vlSelf->img_in_en))) {
             vlSelf->conv1__DOT__i = 5U;
         }
     } else {
@@ -329,8 +329,9 @@ VL_INLINE_OPT void Vconv1___024root___sequent__TOP__3(Vconv1___024root* vlSelf) 
     __Vdlyvset__conv1__DOT__window_mul_result_1__v24 = 0U;
     __Vdlyvset__conv1__DOT__window_mul_result_1__v25 = 0U;
     if (vlSelf->rst_n) {
-        if (((0x1bU == (IData)(vlSelf->conv1__DOT__x_cnt)) 
-             & (IData)(vlSelf->cnn_data_in_valid))) {
+        if ((((0x1bU == (IData)(vlSelf->conv1__DOT__x_cnt)) 
+              & (IData)(vlSelf->cnn_data_in_valid)) 
+             & (IData)(vlSelf->img_in_en))) {
             __Vdly__conv1__DOT__x_cnt = 0U;
         } else if (vlSelf->cnn_data_in_valid) {
             __Vdly__conv1__DOT__x_cnt = (0x1fU & ((IData)(1U) 
@@ -340,9 +341,10 @@ VL_INLINE_OPT void Vconv1___024root___sequent__TOP__3(Vconv1___024root* vlSelf) 
         __Vdly__conv1__DOT__x_cnt = 0U;
     }
     if (vlSelf->rst_n) {
-        if ((((0x1bU == (IData)(vlSelf->conv1__DOT__y_cnt)) 
-              & (0x1bU == (IData)(vlSelf->conv1__DOT__x_cnt))) 
-             & (IData)(vlSelf->cnn_data_in_valid))) {
+        if (((((0x1bU == (IData)(vlSelf->conv1__DOT__y_cnt)) 
+               & (0x1bU == (IData)(vlSelf->conv1__DOT__x_cnt))) 
+              & (IData)(vlSelf->cnn_data_in_valid)) 
+             & (IData)(vlSelf->img_in_en))) {
             __Vdly__conv1__DOT__y_cnt = 0U;
         } else if (((IData)(vlSelf->cnn_data_in_valid) 
                     & (0x1bU == (IData)(vlSelf->conv1__DOT__x_cnt)))) {
@@ -353,7 +355,7 @@ VL_INLINE_OPT void Vconv1___024root___sequent__TOP__3(Vconv1___024root* vlSelf) 
         __Vdly__conv1__DOT__y_cnt = 0U;
     }
     if (vlSelf->rst_n) {
-        if (vlSelf->cnn_data_in_valid) {
+        if (((IData)(vlSelf->cnn_data_in_valid) & (IData)(vlSelf->img_in_en))) {
             __Vdly__conv1__DOT__wr_addr = ((0x1bU == (IData)(vlSelf->conv1__DOT__wr_addr))
                                             ? 0U : 
                                            (0x1fU & 
@@ -364,7 +366,7 @@ VL_INLINE_OPT void Vconv1___024root___sequent__TOP__3(Vconv1___024root* vlSelf) 
         __Vdly__conv1__DOT__wr_addr = 0U;
     }
     if (vlSelf->rst_n) {
-        if (vlSelf->cnn_data_in_valid) {
+        if (((IData)(vlSelf->cnn_data_in_valid) & (IData)(vlSelf->img_in_en))) {
             vlSelf->conv1__DOT__rd_addr = (0x1fU & 
                                            ((0x1bU 
                                              < (0x1fU 
@@ -391,7 +393,7 @@ VL_INLINE_OPT void Vconv1___024root___sequent__TOP__3(Vconv1___024root* vlSelf) 
         __Vdly__conv1__DOT__rom_cnt = 0U;
     }
     if (vlSelf->rst_n) {
-        if (vlSelf->cnn_data_in_valid) {
+        if (((IData)(vlSelf->cnn_data_in_valid) & (IData)(vlSelf->img_in_en))) {
             vlSelf->conv1__DOT____Vlvbound1 = vlSelf->conv1__DOT__window_in
                 [0U];
             __Vdlyvval__conv1__DOT__window__v0 = vlSelf->conv1__DOT____Vlvbound1;
@@ -1261,5 +1263,7 @@ void Vconv1___024root___eval_debug_assertions(Vconv1___024root* vlSelf) {
         Verilated::overWidthError("rst_n");}
     if (VL_UNLIKELY((vlSelf->cnn_data_in_valid & 0xfeU))) {
         Verilated::overWidthError("cnn_data_in_valid");}
+    if (VL_UNLIKELY((vlSelf->img_in_en & 0xfeU))) {
+        Verilated::overWidthError("img_in_en");}
 }
 #endif  // VL_DEBUG

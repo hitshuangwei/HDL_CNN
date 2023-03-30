@@ -26,14 +26,16 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBit(c+274,"rst_n", false,-1);
         tracep->declBus(c+275,"cnn_data_in", false,-1, 7,0);
         tracep->declBit(c+276,"cnn_data_in_valid", false,-1);
-        tracep->declBus(c+277,"cnn_data_out", false,-1, 31,0);
-        tracep->declBit(c+278,"cnn_data_out_valid", false,-1);
+        tracep->declBit(c+277,"img_in_en", false,-1);
+        tracep->declBus(c+278,"cnn_data_out", false,-1, 31,0);
+        tracep->declBit(c+279,"cnn_data_out_valid", false,-1);
         tracep->declBit(c+273,"conv1 clk", false,-1);
         tracep->declBit(c+274,"conv1 rst_n", false,-1);
         tracep->declBus(c+275,"conv1 cnn_data_in", false,-1, 7,0);
         tracep->declBit(c+276,"conv1 cnn_data_in_valid", false,-1);
-        tracep->declBus(c+277,"conv1 cnn_data_out", false,-1, 31,0);
-        tracep->declBit(c+278,"conv1 cnn_data_out_valid", false,-1);
+        tracep->declBit(c+277,"conv1 img_in_en", false,-1);
+        tracep->declBus(c+278,"conv1 cnn_data_out", false,-1, 31,0);
+        tracep->declBit(c+279,"conv1 cnn_data_out_valid", false,-1);
         tracep->declBus(c+177,"conv1 wr_addr", false,-1, 4,0);
         tracep->declBus(c+178,"conv1 rd_addr", false,-1, 4,0);
         tracep->declBus(c+179,"conv1 rd_addr_pre2", false,-1, 4,0);
@@ -70,7 +72,7 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBus(c+206,"conv1 j", false,-1, 31,0);
         tracep->declBus(c+207,"conv1 x_cnt", false,-1, 4,0);
         tracep->declBus(c+208,"conv1 y_cnt", false,-1, 4,0);
-        tracep->declBit(c+279,"conv1 c1_w_rd_en", false,-1);
+        tracep->declBit(c+280,"conv1 c1_w_rd_en", false,-1);
         tracep->declBus(c+209,"conv1 rd_c1_w_1_data", false,-1, 15,0);
         tracep->declBus(c+210,"conv1 c1_w_1(0)(0)", false,-1, 15,0);
         tracep->declBus(c+211,"conv1 c1_w_1(0)(1)", false,-1, 15,0);
@@ -126,8 +128,8 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBus(c+261,"conv1 window_sum_1", false,-1, 31,0);
         tracep->declBit(c+262,"conv1 data_out_valid_o", false,-1);
         tracep->declBit(c+31,"conv1 delay_data_out_valid_o", false,-1);
-        tracep->declArray(c+280,"conv1 weights_rom_u1 FILE_NAME", false,-1, 367,0);
-        tracep->declBit(c+279,"conv1 weights_rom_u1 rom_r_en", false,-1);
+        tracep->declArray(c+281,"conv1 weights_rom_u1 FILE_NAME", false,-1, 367,0);
+        tracep->declBit(c+280,"conv1 weights_rom_u1 rom_r_en", false,-1);
         tracep->declBus(c+235,"conv1 weights_rom_u1 rom_raddr", false,-1, 4,0);
         tracep->declBus(c+209,"conv1 weights_rom_u1 rom_dout", false,-1, 15,0);
         {int i; for (i=0; i<25; i++) {
@@ -135,7 +137,7 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBit(c+273,"conv1 genblk2[0] graylinebuffer_U clkw", false,-1);
         tracep->declBit(c+273,"conv1 genblk2[0] graylinebuffer_U clkr", false,-1);
         tracep->declBit(c+276,"conv1 genblk2[0] graylinebuffer_U w_en", false,-1);
-        tracep->declBit(c+279,"conv1 genblk2[0] graylinebuffer_U r_en", false,-1);
+        tracep->declBit(c+280,"conv1 genblk2[0] graylinebuffer_U r_en", false,-1);
         tracep->declBus(c+177,"conv1 genblk2[0] graylinebuffer_U waddr", false,-1, 4,0);
         tracep->declBus(c+178,"conv1 genblk2[0] graylinebuffer_U raddr", false,-1, 4,0);
         tracep->declBus(c+268,"conv1 genblk2[0] graylinebuffer_U din", false,-1, 7,0);
@@ -145,7 +147,7 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBit(c+273,"conv1 genblk2[1] graylinebuffer_U clkw", false,-1);
         tracep->declBit(c+273,"conv1 genblk2[1] graylinebuffer_U clkr", false,-1);
         tracep->declBit(c+276,"conv1 genblk2[1] graylinebuffer_U w_en", false,-1);
-        tracep->declBit(c+279,"conv1 genblk2[1] graylinebuffer_U r_en", false,-1);
+        tracep->declBit(c+280,"conv1 genblk2[1] graylinebuffer_U r_en", false,-1);
         tracep->declBus(c+177,"conv1 genblk2[1] graylinebuffer_U waddr", false,-1, 4,0);
         tracep->declBus(c+178,"conv1 genblk2[1] graylinebuffer_U raddr", false,-1, 4,0);
         tracep->declBus(c+269,"conv1 genblk2[1] graylinebuffer_U din", false,-1, 7,0);
@@ -155,7 +157,7 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBit(c+273,"conv1 genblk2[2] graylinebuffer_U clkw", false,-1);
         tracep->declBit(c+273,"conv1 genblk2[2] graylinebuffer_U clkr", false,-1);
         tracep->declBit(c+276,"conv1 genblk2[2] graylinebuffer_U w_en", false,-1);
-        tracep->declBit(c+279,"conv1 genblk2[2] graylinebuffer_U r_en", false,-1);
+        tracep->declBit(c+280,"conv1 genblk2[2] graylinebuffer_U r_en", false,-1);
         tracep->declBus(c+177,"conv1 genblk2[2] graylinebuffer_U waddr", false,-1, 4,0);
         tracep->declBus(c+178,"conv1 genblk2[2] graylinebuffer_U raddr", false,-1, 4,0);
         tracep->declBus(c+270,"conv1 genblk2[2] graylinebuffer_U din", false,-1, 7,0);
@@ -165,7 +167,7 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBit(c+273,"conv1 genblk2[3] graylinebuffer_U clkw", false,-1);
         tracep->declBit(c+273,"conv1 genblk2[3] graylinebuffer_U clkr", false,-1);
         tracep->declBit(c+276,"conv1 genblk2[3] graylinebuffer_U w_en", false,-1);
-        tracep->declBit(c+279,"conv1 genblk2[3] graylinebuffer_U r_en", false,-1);
+        tracep->declBit(c+280,"conv1 genblk2[3] graylinebuffer_U r_en", false,-1);
         tracep->declBus(c+177,"conv1 genblk2[3] graylinebuffer_U waddr", false,-1, 4,0);
         tracep->declBus(c+178,"conv1 genblk2[3] graylinebuffer_U raddr", false,-1, 4,0);
         tracep->declBus(c+271,"conv1 genblk2[3] graylinebuffer_U din", false,-1, 7,0);
@@ -175,7 +177,7 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBit(c+273,"conv1 genblk2[4] graylinebuffer_U clkw", false,-1);
         tracep->declBit(c+273,"conv1 genblk2[4] graylinebuffer_U clkr", false,-1);
         tracep->declBit(c+276,"conv1 genblk2[4] graylinebuffer_U w_en", false,-1);
-        tracep->declBit(c+279,"conv1 genblk2[4] graylinebuffer_U r_en", false,-1);
+        tracep->declBit(c+280,"conv1 genblk2[4] graylinebuffer_U r_en", false,-1);
         tracep->declBus(c+177,"conv1 genblk2[4] graylinebuffer_U waddr", false,-1, 4,0);
         tracep->declBus(c+178,"conv1 genblk2[4] graylinebuffer_U raddr", false,-1, 4,0);
         tracep->declBus(c+272,"conv1 genblk2[4] graylinebuffer_U din", false,-1, 7,0);
@@ -581,9 +583,10 @@ void Vconv1___024root__traceFullSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->fullBit(oldp+274,(vlSelf->rst_n));
         tracep->fullCData(oldp+275,(vlSelf->cnn_data_in),8);
         tracep->fullBit(oldp+276,(vlSelf->cnn_data_in_valid));
-        tracep->fullIData(oldp+277,(vlSelf->cnn_data_out),32);
-        tracep->fullBit(oldp+278,(vlSelf->cnn_data_out_valid));
-        tracep->fullBit(oldp+279,(1U));
-        tracep->fullWData(oldp+280,(Vconv1__ConstPool__CONST_1dbef1e8_0),368);
+        tracep->fullBit(oldp+277,(vlSelf->img_in_en));
+        tracep->fullIData(oldp+278,(vlSelf->cnn_data_out),32);
+        tracep->fullBit(oldp+279,(vlSelf->cnn_data_out_valid));
+        tracep->fullBit(oldp+280,(1U));
+        tracep->fullWData(oldp+281,(Vconv1__ConstPool__CONST_1dbef1e8_0),368);
     }
 }

@@ -7,17 +7,21 @@ module conv1(
 
     cnn_data_in         ,
     cnn_data_in_valid   ,
+    img_in_en           ,
 
     cnn_data_out        ,
-    cnn_data_out_valid
+    cnn_data_out_valid  /*,
+    img_out_en*/
 );
 
     input                           clk                 ; /* 输入时钟 */
     input                           rst_n               ; /* 复位 */
     input   [`CNN_DATA_IN_W-1:0]    cnn_data_in         ; /* 输入数据 */
     input                           cnn_data_in_valid   ; /* 输入数据有效 */
+    input                           img_in_en           ; /* 图片输入有效信号 */
     output  [`CNN_CONV1_OUT_W-1:0]  cnn_data_out        ; /* 输出数据 */
-    output reg                      cnn_data_out_valid  ; /* 输出数据有效 */
+    output  reg                     cnn_data_out_valid  ; /* 输出数据有效 */
+    /*output  reg                     img_out_en          ; /* 图片输出有效信号 */
 
     /*======================= addr ============================*/
     /* 生成linebuffer的读写地址，由于读使能输入到数据输出需要两个周期，使用rd_addr_pre2比rd_addr提前两个位置 */
@@ -29,7 +33,7 @@ module conv1(
             wr_addr <= 0;
             rd_addr <= 0;
         end
-        else if(cnn_data_in_valid == 1'b1)begin
+        else if((cnn_data_in_valid == 1'b1) && (img_in_en == 1'b1))begin
             //========== A ============
             if(wr_addr == 'd27)
                 wr_addr <= 5'd0;
@@ -83,7 +87,7 @@ module conv1(
                 end
             end
         end
-        else if(cnn_data_in_valid == 1'b1 )begin
+        else if((cnn_data_in_valid == 1'b1) && (img_in_en == 1'b1) )begin
             for(i = 0; i < 5; i = i + 1)begin
                 window[i][0] <= window_in[i];
                 for(j = 1; j < 5; j = j + 1)begin
@@ -100,7 +104,7 @@ module conv1(
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)
             x_cnt <= 0;
-        else if(x_cnt == 5'd27 && cnn_data_in_valid == 1'b1)
+        else if(x_cnt == 5'd27 && cnn_data_in_valid == 1'b1 && img_in_en == 1'b1)
             x_cnt <=0 ;
         else if(cnn_data_in_valid == 1'b1)
             x_cnt <= x_cnt + 1'b1;
@@ -109,7 +113,7 @@ module conv1(
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)
             y_cnt <= 0;
-        else if(y_cnt == 5'd27 &&x_cnt == 5'd27 && cnn_data_in_valid == 1'b1)
+        else if(y_cnt == 5'd27 &&x_cnt == 5'd27 && cnn_data_in_valid == 1'b1 && img_in_en == 1'b1)
             y_cnt <= 0;
         else if(cnn_data_in_valid == 1'b1 && x_cnt == 5'd27)
             y_cnt <= y_cnt + 1'b1;
@@ -150,14 +154,14 @@ module conv1(
         if(~rst_n)begin
             for(i=0;i<5;i=i+1)begin
                 for(j=0;j<5;j=j+1)begin
-                        window_mul_result_1[i][j] <= 0;
+                    window_mul_result_1[i][j] <= 0;
                 end
             end
         end
         else begin
             for(i=0;i<5;i=i+1)begin
                 for(j=0;j<5;j=j+1)begin
-                        window_mul_result_1[i][j] <={ { 24{1'b0} }, window[i][j] } * { {16{c1_w_1[i][j][15]}},  c1_w_1[i][j] };
+                    window_mul_result_1[i][j] <={ { 24{1'b0} }, window[i][j] } * { {16{c1_w_1[i][j][15]}},  c1_w_1[i][j] };
                 end
             end
         end

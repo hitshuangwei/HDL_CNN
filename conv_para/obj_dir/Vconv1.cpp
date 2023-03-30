@@ -14,6 +14,7 @@ Vconv1::Vconv1(VerilatedContext* _vcontextp__, const char* _vcname__)
     , rst_n{vlSymsp->TOP.rst_n}
     , cnn_data_in{vlSymsp->TOP.cnn_data_in}
     , cnn_data_in_valid{vlSymsp->TOP.cnn_data_in_valid}
+    , img_in_en{vlSymsp->TOP.img_in_en}
     , cnn_data_out{vlSymsp->TOP.cnn_data_out}
     , cnn_data_out_valid{vlSymsp->TOP.cnn_data_out_valid}
     , rootp{&(vlSymsp->TOP)}
