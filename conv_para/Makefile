@@ -1,16 +1,16 @@
 
 all:clean trans sim run wave
- 
+
 VSRCS = $(shell find $(./vsrc ) -name "*.v")
 CSRCS = $(shell find $(./csrc ) -name "*.c" -or -name "*.cc" -or -name "*.cpp" -or -name "*.h")
- 
+
 INCLUDE = ./vsrc/include
 VSRCDIR = ./vsrc
 CSRCDIR = ./csrc
 
 trans:
 	verilator --cc ./vsrc/conv1.v \
-	-I$(VSRCDIR) 
+	-I$(VSRCDIR)
 
 
 sim:
@@ -19,11 +19,12 @@ sim:
     -I$(VSRCDIR) ./csrc/sim_conv1.cpp ./vsrc/conv1.v
 run:
 	./obj_dir/Vconv1
- 
+
 wave:
 	gtkwave waveform.vcd
- 
+
 clean:
 	rm -rf obj_dir
 	rm -rf *.vcd
- 
+	rm -rf ./csrc/matrix_out.txt
+

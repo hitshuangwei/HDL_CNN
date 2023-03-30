@@ -1,7 +1,12 @@
 `include "cnn_defines.v"
 `include "graylinebuffer.v"
 `include "weights_rom.v"
-module conv1(
+module conv1
+#(
+    parameter IMG_IN_WIDTH = 28,
+    parameter KERNEL_WIDTH = 5
+)
+(
     clk                 ,
     rst_n               ,
 
@@ -35,13 +40,13 @@ module conv1(
         end
         else if((cnn_data_in_valid == 1'b1) && (img_in_en == 1'b1))begin
             //========== A ============
-            if(wr_addr == 'd27)
+            if(wr_addr == (IMG_IN_WIDTH-1))
                 wr_addr <= 5'd0;
             else
                 wr_addr <= wr_addr + 1'd1;
             //========== B ============
-            if(rd_addr_pre2 > 'd27)
-                rd_addr <= rd_addr_pre2 - 5'd28;
+            if(rd_addr_pre2 > (IMG_IN_WIDTH-1))
+                rd_addr <= rd_addr_pre2 - IMG_IN_WIDTH;
             else
                 rd_addr <= rd_addr_pre2;
         end
@@ -53,7 +58,7 @@ module conv1(
     assign  window_in[0] = cnn_data_in;
     genvar k;
     generate
-    for(k = 1; k < 5; k = k + 1)begin
+    for(k = 1; k < KERNEL_WIDTH; k = k + 1)begin
         assign window_in[k] = window_out[k-1];
     end
     endgenerate
@@ -61,7 +66,7 @@ module conv1(
     //======================= Instance ===============================
     /* window_in和window_out的每一行都写入/读出buffer的对应行 */
     generate
-    for (k = 0; k < 5; k = k + 1)begin
+    for (k = 0; k < KERNEL_WIDTH; k = k + 1)begin
     graylinebuffer graylinebuffer_U (
         .clkw (clk              ),
         .w_en (cnn_data_in_valid),
@@ -77,20 +82,20 @@ module conv1(
     //======================= window ===============================
     /* window是5*5卷积窗口，列移位寄存 */
     /* 假设i是行j是列，第0列输入window_in */
-    reg signed [7:0] window[5-1:0][5-1:0];
+    reg signed [7:0] window[KERNEL_WIDTH-1:0][KERNEL_WIDTH-1:0];
     integer i,j;
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)begin
-            for(i = 0; i < 5; i = i + 1)begin
-                for(j = 0; j < 5; j = j + 1)begin
+            for(i = 0; i < KERNEL_WIDTH; i = i + 1)begin
+                for(j = 0; j < KERNEL_WIDTH; j = j + 1)begin
                     window[i][j] <= 0;
                 end
             end
         end
         else if((cnn_data_in_valid == 1'b1) && (img_in_en == 1'b1) )begin
-            for(i = 0; i < 5; i = i + 1)begin
+            for(i = 0; i < KERNEL_WIDTH; i = i + 1)begin
                 window[i][0] <= window_in[i];
-                for(j = 1; j < 5; j = j + 1)begin
+                for(j = 1; j < KERNEL_WIDTH; j = j + 1)begin
                     window[i][j] <= window[i][j-1];
                 end
             end
@@ -104,7 +109,7 @@ module conv1(
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)
             x_cnt <= 0;
-        else if(x_cnt == 5'd27 && cnn_data_in_valid == 1'b1 && img_in_en == 1'b1)
+        else if(x_cnt == (IMG_IN_WIDTH-1) && cnn_data_in_valid == 1'b1 && img_in_en == 1'b1)
             x_cnt <=0 ;
         else if(cnn_data_in_valid == 1'b1)
             x_cnt <= x_cnt + 1'b1;
@@ -113,9 +118,9 @@ module conv1(
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)
             y_cnt <= 0;
-        else if(y_cnt == 5'd27 &&x_cnt == 5'd27 && cnn_data_in_valid == 1'b1 && img_in_en == 1'b1)
+        else if(y_cnt == (IMG_IN_WIDTH-1) &&x_cnt == (IMG_IN_WIDTH-1) && cnn_data_in_valid == 1'b1 && img_in_en == 1'b1)
             y_cnt <= 0;
-        else if(cnn_data_in_valid == 1'b1 && x_cnt == 5'd27)
+        else if(cnn_data_in_valid == 1'b1 && x_cnt == (IMG_IN_WIDTH-1))
             y_cnt <= y_cnt + 1'b1;
     end
     //======================= weights =======================
@@ -123,7 +128,7 @@ module conv1(
     assign c1_w_rd_en = 1'b1;
 
     wire    [15:0] rd_c1_w_1_data;
-    reg   signed  [15:0]  c1_w_1[4:0][4:0];
+    reg   signed  [15:0]  c1_w_1[KERNEL_WIDTH-1:0][KERNEL_WIDTH-1:0];
 
     weights_rom#("/home/ws/CNN_Verilog/conv_para/vsrc/kernel.txt") weights_rom_u1(
     .rom_r_en (c1_w_rd_en       ),
@@ -138,29 +143,29 @@ module conv1(
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)
             rom_cnt <= 0;
-        else if(rom_cnt == 5'd24 && cnn_data_in_valid == 1'b1)
+        else if(rom_cnt == (KERNEL_WIDTH*KERNEL_WIDTH-1) && cnn_data_in_valid == 1'b1)
             rom_cnt <=0 ;
         else if(cnn_data_in_valid == 1'b1)
             rom_cnt <= rom_cnt + 1'b1;
     end
     always@(*)begin
-            c1_w_1[(rom_cnt)/5][(rom_cnt)%5] = rd_c1_w_1_data;
+            c1_w_1[(rom_cnt)/KERNEL_WIDTH][(rom_cnt)%KERNEL_WIDTH] = rd_c1_w_1_data;
     end
     //======================= mul  =======================
-    reg signed[31:0]  window_mul_result_1[4:0][4:0];
+    reg signed[31:0]  window_mul_result_1[KERNEL_WIDTH-1:0][KERNEL_WIDTH-1:0];
 
 
     always@(posedge clk,negedge rst_n)begin
         if(~rst_n)begin
-            for(i=0;i<5;i=i+1)begin
-                for(j=0;j<5;j=j+1)begin
+            for(i=0;i<KERNEL_WIDTH;i=i+1)begin
+                for(j=0;j<KERNEL_WIDTH;j=j+1)begin
                     window_mul_result_1[i][j] <= 0;
                 end
             end
         end
         else begin
-            for(i=0;i<5;i=i+1)begin
-                for(j=0;j<5;j=j+1)begin
+            for(i=0;i<KERNEL_WIDTH;i=i+1)begin
+                for(j=0;j<KERNEL_WIDTH;j=j+1)begin
                     window_mul_result_1[i][j] <={ { 24{1'b0} }, window[i][j] } * { {16{c1_w_1[i][j][15]}},  c1_w_1[i][j] };
                 end
             end

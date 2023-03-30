@@ -87,7 +87,7 @@ int main(int argc, char** argv, char** env){
 
     //加载图片
     vector<double> imgIn;  // 28x28大小的图像向量
-
+    vector<double> imgOut; //输出图像向量
     imgIn=load_img("/home/ws/CNN_Verilog/CNN/csrc/matrix.txt");
     for(int j = 0; j < IMG_SIZE; j++){
         cout << imgIn[j] <<  endl;
@@ -102,21 +102,27 @@ int main(int argc, char** argv, char** env){
     while (sim_time < MAX_TIME)
     {
         //将图像数据加载到电路输入端
-        if(i < IMG_SIZE){
+        if(i < (IMG_SIZE)){
             dut -> cnn_data_in = imgIn[i];
             dut -> eval();
             exec_once();
             i++;
         }
         else{
-            dut -> cnn_data_in = 0;
+            dut -> cnn_data_in = 1;
             dut -> eval();
             exec_once();
-            dut -> img_in_en = 0;
+            dut -> img_in_en = 1;
             i++;
+        }
+        if((dut -> cnn_data_out_valid == 1) && (i < (IMG_SIZE + 2))){
+            imgOut.push_back(dut -> cnn_data_out);
         }
     }
 
     m_trace->close();
-
+    ofstream f("/home/ws/CNN_Verilog/conv_para/csrc/matrix_out.txt", ios::app);
+    for (int j = 0; j <imgOut.size(); ++j) {
+        f<<imgOut[j]<<" ";
+    }
 }
