@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.signal import convolve2d
-img_width = 25
+img_width = 200
 kernel_width = 5
 # 创建输入矩阵并输出为txt
 matrix_in = np.zeros((img_width, img_width), dtype=int)

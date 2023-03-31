@@ -28,12 +28,12 @@ VL_MODULE(Vconv1___024root) {
     VL_OUT(cnn_data_out,31,0);
 
     // LOCAL SIGNALS
-    CData/*4:0*/ conv1__DOT__wr_addr;
-    CData/*4:0*/ conv1__DOT__rd_addr;
-    CData/*4:0*/ conv1__DOT__x_cnt;
-    CData/*4:0*/ conv1__DOT__y_cnt;
+    CData/*7:0*/ conv1__DOT__wr_addr;
+    CData/*7:0*/ conv1__DOT__rd_addr;
     CData/*4:0*/ conv1__DOT__rom_cnt;
     CData/*0:0*/ conv1__DOT__delay_data_out_valid_o;
+    SData/*8:0*/ conv1__DOT__x_cnt;
+    SData/*8:0*/ conv1__DOT__y_cnt;
     IData/*31:0*/ conv1__DOT__i;
     IData/*31:0*/ conv1__DOT__j;
     IData/*31:0*/ conv1__DOT__window_sum_1;
@@ -43,11 +43,11 @@ VL_MODULE(Vconv1___024root) {
     VlUnpacked<VlUnpacked<SData/*15:0*/, 5>, 5> conv1__DOT__c1_w_1;
     VlUnpacked<VlUnpacked<IData/*31:0*/, 5>, 5> conv1__DOT__window_mul_result_1;
     VlUnpacked<SData/*15:0*/, 25> conv1__DOT__weights_rom_u1__DOT__para_rom;
-    VlUnpacked<CData/*7:0*/, 25> conv1__DOT__genblk2__BRA__0__KET____DOT__graylinebuffer_U__DOT__buffer;
-    VlUnpacked<CData/*7:0*/, 25> conv1__DOT__genblk2__BRA__1__KET____DOT__graylinebuffer_U__DOT__buffer;
-    VlUnpacked<CData/*7:0*/, 25> conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT__buffer;
-    VlUnpacked<CData/*7:0*/, 25> conv1__DOT__genblk2__BRA__3__KET____DOT__graylinebuffer_U__DOT__buffer;
-    VlUnpacked<CData/*7:0*/, 25> conv1__DOT__genblk2__BRA__4__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 200> conv1__DOT__genblk2__BRA__0__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 200> conv1__DOT__genblk2__BRA__1__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 200> conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 200> conv1__DOT__genblk2__BRA__3__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 200> conv1__DOT__genblk2__BRA__4__KET____DOT__graylinebuffer_U__DOT__buffer;
 
     // LOCAL VARIABLES
     CData/*7:0*/ conv1__DOT____Vcellout__genblk2__BRA__0__KET____DOT__graylinebuffer_U__dout;

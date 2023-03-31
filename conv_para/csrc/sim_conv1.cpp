@@ -11,7 +11,7 @@
 
 using namespace std;
 
-#define MAX_TIME 2000
+#define MAX_TIME 200000
 
 
 // ========================= Environment =========================
@@ -23,7 +23,7 @@ using namespace std;
     vluint64_t sim_time = 0;
 //========================== Functions ===========================
 //加载图片
-const int IMG_IN_WIDTH = 25;
+const int IMG_IN_WIDTH = 200;
 const int IMG_SIZE = IMG_IN_WIDTH*IMG_IN_WIDTH;
 vector<double> load_img(const string& Filepath){
 

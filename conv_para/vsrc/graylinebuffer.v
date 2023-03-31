@@ -19,8 +19,8 @@ module graylinebuffer
     input                                   clkr    ;
     input                                   w_en    ;
     input                                   r_en    ;
-    input  [`CNN_GRAY_BUFFER_ADDR_W-1:0]    waddr   ;
-    input  [`CNN_GRAY_BUFFER_ADDR_W-1:0]    raddr   ;
+    input  [$clog2(IMG_IN_WIDTH)-1:0]    waddr   ;
+    input  [$clog2(IMG_IN_WIDTH)-1:0]    raddr   ;
     input  [`CNN_DATA_IN_W-1:0]             din     ;
 
     output reg [`CNN_DATA_IN_W-1:0] dout;
