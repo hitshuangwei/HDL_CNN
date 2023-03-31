@@ -2,7 +2,7 @@
 `include "cnn_defines.v"
 module graylinebuffer
 #(
-    parameter IMG_IN_WIDTH = 28
+    parameter IMG_IN_WIDTH = 25
 )
 (
     clkw    ,

@@ -243,23 +243,23 @@ void Vconv1___024root___ctor_var_reset(Vconv1___024root* vlSelf) {
     for (int __Vi0=0; __Vi0<25; ++__Vi0) {
         vlSelf->conv1__DOT__weights_rom_u1__DOT__para_rom[__Vi0] = VL_RAND_RESET_I(16);
     }
-    for (int __Vi0=0; __Vi0<27; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<25; ++__Vi0) {
         vlSelf->conv1__DOT__genblk2__BRA__0__KET____DOT__graylinebuffer_U__DOT__buffer[__Vi0] = VL_RAND_RESET_I(8);
     }
     vlSelf->conv1__DOT__genblk2__BRA__0__KET____DOT__graylinebuffer_U__DOT____Vlvbound1 = VL_RAND_RESET_I(8);
-    for (int __Vi0=0; __Vi0<27; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<25; ++__Vi0) {
         vlSelf->conv1__DOT__genblk2__BRA__1__KET____DOT__graylinebuffer_U__DOT__buffer[__Vi0] = VL_RAND_RESET_I(8);
     }
     vlSelf->conv1__DOT__genblk2__BRA__1__KET____DOT__graylinebuffer_U__DOT____Vlvbound1 = VL_RAND_RESET_I(8);
-    for (int __Vi0=0; __Vi0<27; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<25; ++__Vi0) {
         vlSelf->conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT__buffer[__Vi0] = VL_RAND_RESET_I(8);
     }
     vlSelf->conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT____Vlvbound1 = VL_RAND_RESET_I(8);
-    for (int __Vi0=0; __Vi0<27; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<25; ++__Vi0) {
         vlSelf->conv1__DOT__genblk2__BRA__3__KET____DOT__graylinebuffer_U__DOT__buffer[__Vi0] = VL_RAND_RESET_I(8);
     }
     vlSelf->conv1__DOT__genblk2__BRA__3__KET____DOT__graylinebuffer_U__DOT____Vlvbound1 = VL_RAND_RESET_I(8);
-    for (int __Vi0=0; __Vi0<27; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<25; ++__Vi0) {
         vlSelf->conv1__DOT__genblk2__BRA__4__KET____DOT__graylinebuffer_U__DOT__buffer[__Vi0] = VL_RAND_RESET_I(8);
     }
     vlSelf->conv1__DOT__genblk2__BRA__4__KET____DOT__graylinebuffer_U__DOT____Vlvbound1 = VL_RAND_RESET_I(8);

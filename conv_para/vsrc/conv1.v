@@ -3,7 +3,7 @@
 `include "weights_rom.v"
 module conv1
 #(
-    parameter IMG_IN_WIDTH = 27,
+    parameter IMG_IN_WIDTH = 25,
     parameter KERNEL_WIDTH = 5
 )
 (
