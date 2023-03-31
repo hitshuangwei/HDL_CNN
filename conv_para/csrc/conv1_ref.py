@@ -1,3 +1,4 @@
+# 卷积模块验证
 import numpy as np
 from scipy.signal import convolve2d
 img_width = 20
@@ -19,7 +20,9 @@ with open('kernel.txt', 'w') as f:
         for j in range(kernel_width):
             f.write(str(kernel[i][j]) + '\n')
 # 卷积并将结果输出为txt
+
 matrix_out = convolve2d(matrix_in, kernel, mode='valid')
+
 out_width, _ = matrix_out.shape
 with open('matrix_out_py.txt', 'w') as f:
     for i in range(out_width):

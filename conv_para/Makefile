@@ -29,7 +29,7 @@ clean:
 	rm -rf ./*.txt
 
 py:
-	python ./csrc/convtest.py
+	python ./csrc/conv1_ref.py
 
 compare:
 	python comp.py
