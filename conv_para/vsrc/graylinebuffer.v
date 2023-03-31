@@ -1,6 +1,10 @@
 /* 灰度流缓存 双口ram*/
 `include "cnn_defines.v"
-module graylinebuffer(
+module graylinebuffer
+#(
+    parameter IMG_IN_WIDTH = 28
+)
+(
     clkw    ,
     w_en    ,
     waddr   ,
@@ -9,7 +13,7 @@ module graylinebuffer(
     clkr    ,
     r_en    ,
     raddr   ,
-    dout    
+    dout
 );
     input                                   clkw    ;
     input                                   clkr    ;
@@ -21,7 +25,7 @@ module graylinebuffer(
 
     output reg [`CNN_DATA_IN_W-1:0] dout;
 
-    reg [`CNN_DATA_IN_W-1:0] buffer [`CNN_IMG_IN_WIDTH-1:0];
+    reg [`CNN_DATA_IN_W-1:0] buffer [IMG_IN_WIDTH-1:0];
 
     always@(posedge clkw) begin
         if(w_en)
@@ -29,7 +33,7 @@ module graylinebuffer(
         else
             ;
     end
-    
+
     always@(posedge clkr) begin
         if(r_en)
             dout <= buffer[raddr];

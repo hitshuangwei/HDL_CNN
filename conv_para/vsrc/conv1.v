@@ -3,7 +3,7 @@
 `include "weights_rom.v"
 module conv1
 #(
-    parameter IMG_IN_WIDTH = 28,
+    parameter IMG_IN_WIDTH = 27,
     parameter KERNEL_WIDTH = 5
 )
 (
@@ -67,7 +67,7 @@ module conv1
     /* window_in和window_out的每一行都写入/读出buffer的对应行 */
     generate
     for (k = 0; k < KERNEL_WIDTH; k = k + 1)begin
-    graylinebuffer graylinebuffer_U (
+    graylinebuffer #(IMG_IN_WIDTH)graylinebuffer_U (
         .clkw (clk              ),
         .w_en (cnn_data_in_valid),
         .waddr(wr_addr          ),

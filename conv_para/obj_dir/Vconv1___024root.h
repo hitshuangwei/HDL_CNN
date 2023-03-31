@@ -43,11 +43,11 @@ VL_MODULE(Vconv1___024root) {
     VlUnpacked<VlUnpacked<SData/*15:0*/, 5>, 5> conv1__DOT__c1_w_1;
     VlUnpacked<VlUnpacked<IData/*31:0*/, 5>, 5> conv1__DOT__window_mul_result_1;
     VlUnpacked<SData/*15:0*/, 25> conv1__DOT__weights_rom_u1__DOT__para_rom;
-    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__0__KET____DOT__graylinebuffer_U__DOT__buffer;
-    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__1__KET____DOT__graylinebuffer_U__DOT__buffer;
-    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT__buffer;
-    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__3__KET____DOT__graylinebuffer_U__DOT__buffer;
-    VlUnpacked<CData/*7:0*/, 28> conv1__DOT__genblk2__BRA__4__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 27> conv1__DOT__genblk2__BRA__0__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 27> conv1__DOT__genblk2__BRA__1__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 27> conv1__DOT__genblk2__BRA__2__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 27> conv1__DOT__genblk2__BRA__3__KET____DOT__graylinebuffer_U__DOT__buffer;
+    VlUnpacked<CData/*7:0*/, 27> conv1__DOT__genblk2__BRA__4__KET____DOT__graylinebuffer_U__DOT__buffer;
 
     // LOCAL VARIABLES
     CData/*7:0*/ conv1__DOT____Vcellout__genblk2__BRA__0__KET____DOT__graylinebuffer_U__dout;

@@ -1,5 +1,5 @@
 
-all: clean py trans sim run wave compare
+all: clean py trans sim run compare
 
 VSRCS = $(shell find $(./vsrc ) -name "*.v")
 CSRCS = $(shell find $(./csrc ) -name "*.c" -or -name "*.cc" -or -name "*.cpp" -or -name "*.h")
