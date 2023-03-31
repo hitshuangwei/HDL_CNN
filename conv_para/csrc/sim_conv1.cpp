@@ -11,9 +11,6 @@
 
 using namespace std;
 
-#define MAX_TIME 200000
-
-
 // ========================= Environment =========================
     VerilatedContext *contextp;
     Vconv1 *dut;
@@ -23,8 +20,9 @@ using namespace std;
     vluint64_t sim_time = 0;
 //========================== Functions ===========================
 //加载图片
-const int IMG_IN_WIDTH = 200;
+const int IMG_IN_WIDTH = 20;
 const int IMG_SIZE = IMG_IN_WIDTH*IMG_IN_WIDTH;
+const int MAX_TIME = 2*IMG_SIZE + 1000;
 vector<double> load_img(const string& Filepath){
 
     double x;
@@ -90,9 +88,9 @@ int main(int argc, char** argv, char** env){
     vector<double> imgIn;  // 28x28大小的图像向量
     vector<double> imgOut; //输出图像向量
     imgIn=load_img("/home/ws/CNN_Verilog/conv_para/matrix_in.txt");
-    for(int j = 0; j < IMG_SIZE; j++){
+    /*for(int j = 0; j < IMG_SIZE; j++){
         cout << imgIn[j] <<  endl;
-    }
+    }*/
 
     //电路复位
     conv_rst();

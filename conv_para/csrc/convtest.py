@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.signal import convolve2d
-img_width = 200
+img_width = 20
 kernel_width = 5
 # 创建输入矩阵并输出为txt
 matrix_in = np.zeros((img_width, img_width), dtype=int)
@@ -18,9 +18,6 @@ with open('kernel.txt', 'w') as f:
     for i in range(kernel_width):
         for j in range(kernel_width):
             f.write(str(kernel[i][j]) + '\n')
-# 输出两个矩阵的形状
-print("kernel:\n", kernel[0:kernel_width, 0:kernel_width])
-print("imgIn:\n", matrix_in[0:img_width, 0:img_width])
 # 卷积并将结果输出为txt
 matrix_out = convolve2d(matrix_in, kernel, mode='valid')
 out_width, _ = matrix_out.shape

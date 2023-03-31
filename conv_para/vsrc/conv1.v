@@ -3,7 +3,7 @@
 `include "weights_rom.v"
 module conv1
 #(
-    parameter IMG_IN_WIDTH = 200,
+    parameter IMG_IN_WIDTH = 20,
     parameter KERNEL_WIDTH = 5
 )
 (
@@ -30,9 +30,10 @@ module conv1
 
     /*======================= addr ============================*/
     /* 生成linebuffer的读写地址，由于读使能输入到数据输出需要两个周期，使用rd_addr_pre2比rd_addr提前两个位置 */
-    reg [$clog2(IMG_IN_WIDTH)-1:0] wr_addr;
-    reg [$clog2(IMG_IN_WIDTH)-1:0] rd_addr;
-    wire [$clog2(IMG_IN_WIDTH)-1:0] rd_addr_pre2 = wr_addr + 2;
+    parameter IMG_ADDR_WIDTH = $clog2(IMG_IN_WIDTH);
+    reg [IMG_ADDR_WIDTH-1:0] wr_addr;
+    reg [IMG_ADDR_WIDTH-1:0] rd_addr;
+    wire [IMG_ADDR_WIDTH-1:0] rd_addr_pre2 = wr_addr + 2;
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)begin
             wr_addr <= 0;
@@ -103,8 +104,8 @@ module conv1
     end
 //======================= x_cnt y_cnt ====================
 /* 指示当前数据在图片中的位置，x是行数，y是列数 */
-    reg [$clog2(IMG_IN_WIDTH-1):0] x_cnt;
-    reg [$clog2(IMG_IN_WIDTH-1):0] y_cnt;
+    reg [IMG_ADDR_WIDTH-1:0] x_cnt;
+    reg [IMG_ADDR_WIDTH-1:0] y_cnt;
 
     always@(posedge clk, negedge rst_n)begin
         if(~rst_n)
