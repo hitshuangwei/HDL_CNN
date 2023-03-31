@@ -1,5 +1,5 @@
 
-all:clean trans sim run wave
+all: clean py trans sim run wave compare
 
 VSRCS = $(shell find $(./vsrc ) -name "*.v")
 CSRCS = $(shell find $(./csrc ) -name "*.c" -or -name "*.cc" -or -name "*.cpp" -or -name "*.h")
@@ -26,5 +26,11 @@ wave:
 clean:
 	rm -rf obj_dir
 	rm -rf *.vcd
-	rm -rf ./csrc/matrix_out.txt
+	rm -rf ./*.txt
+
+py:
+	python ./csrc/convtest.py
+
+compare:
+	python comp.py
 

@@ -130,7 +130,7 @@ void Vconv1___024root__traceInitSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->declBus(c+261,"conv1 window_sum_1", false,-1, 31,0);
         tracep->declBit(c+262,"conv1 data_out_valid_o", false,-1);
         tracep->declBit(c+31,"conv1 delay_data_out_valid_o", false,-1);
-        tracep->declArray(c+283,"conv1 weights_rom_u1 FILE_NAME", false,-1, 367,0);
+        tracep->declArray(c+283,"conv1 weights_rom_u1 FILE_NAME", false,-1, 327,0);
         tracep->declBit(c+282,"conv1 weights_rom_u1 rom_r_en", false,-1);
         tracep->declBus(c+235,"conv1 weights_rom_u1 rom_raddr", false,-1, 4,0);
         tracep->declBus(c+209,"conv1 weights_rom_u1 rom_dout", false,-1, 15,0);
@@ -215,7 +215,7 @@ void Vconv1___024root__traceFullTop0(void* voidSelf, VerilatedVcd* tracep) {
     }
 }
 
-extern const VlWide<12>/*383:0*/ Vconv1__ConstPool__CONST_1dbef1e8_0;
+extern const VlWide<11>/*351:0*/ Vconv1__ConstPool__CONST_37372f90_0;
 
 void Vconv1___024root__traceFullSub0(Vconv1___024root* vlSelf, VerilatedVcd* tracep) {
     if (false && vlSelf) {}  // Prevent unused
@@ -591,6 +591,6 @@ void Vconv1___024root__traceFullSub0(Vconv1___024root* vlSelf, VerilatedVcd* tra
         tracep->fullIData(oldp+280,(0x1cU),32);
         tracep->fullIData(oldp+281,(5U),32);
         tracep->fullBit(oldp+282,(1U));
-        tracep->fullWData(oldp+283,(Vconv1__ConstPool__CONST_1dbef1e8_0),368);
+        tracep->fullWData(oldp+283,(Vconv1__ConstPool__CONST_37372f90_0),328);
     }
 }

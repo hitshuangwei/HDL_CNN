@@ -130,7 +130,7 @@ module conv1
     wire    [15:0] rd_c1_w_1_data;
     reg   signed  [15:0]  c1_w_1[KERNEL_WIDTH-1:0][KERNEL_WIDTH-1:0];
 
-    weights_rom#("/home/ws/CNN_Verilog/conv_para/vsrc/kernel.txt") weights_rom_u1(
+    weights_rom#("/home/ws/CNN_Verilog/conv_para/kernel.txt") weights_rom_u1(
     .rom_r_en (c1_w_rd_en       ),
     .rom_raddr(rom_cnt          ),
     .rom_dout (rd_c1_w_1_data   )

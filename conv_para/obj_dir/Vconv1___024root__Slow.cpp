@@ -25,14 +25,14 @@ void Vconv1___024root::__Vconfigure(Vconv1__Syms* _vlSymsp, bool first) {
 Vconv1___024root::~Vconv1___024root() {
 }
 
-extern const VlWide<12>/*383:0*/ Vconv1__ConstPool__CONST_1dbef1e8_0;
+extern const VlWide<11>/*351:0*/ Vconv1__ConstPool__CONST_37372f90_0;
 
 void Vconv1___024root___initial__TOP__1(Vconv1___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vconv1__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vconv1___024root___initial__TOP__1\n"); );
     // Body
-    VL_READMEM_N(true, 16, 25, 0, VL_CVT_PACK_STR_NW(12, Vconv1__ConstPool__CONST_1dbef1e8_0)
+    VL_READMEM_N(true, 16, 25, 0, VL_CVT_PACK_STR_NW(11, Vconv1__ConstPool__CONST_37372f90_0)
                  ,  &(vlSelf->conv1__DOT__weights_rom_u1__DOT__para_rom)
                  , 0, ~0ULL);
 }

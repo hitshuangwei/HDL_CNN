@@ -88,7 +88,7 @@ int main(int argc, char** argv, char** env){
     //加载图片
     vector<double> imgIn;  // 28x28大小的图像向量
     vector<double> imgOut; //输出图像向量
-    imgIn=load_img("/home/ws/CNN_Verilog/CNN/csrc/matrix.txt");
+    imgIn=load_img("/home/ws/CNN_Verilog/conv_para/matrix_in.txt");
     for(int j = 0; j < IMG_SIZE; j++){
         cout << imgIn[j] <<  endl;
     }
@@ -121,8 +121,8 @@ int main(int argc, char** argv, char** env){
     }
 
     m_trace->close();
-    ofstream f("/home/ws/CNN_Verilog/conv_para/csrc/matrix_out.txt", ios::app);
+    ofstream f("/home/ws/CNN_Verilog/conv_para/matrix_out_c.txt", ios::app);
     for (int j = 0; j <imgOut.size(); ++j) {
-        f<<imgOut[j]<<" ";
+        f<<imgOut[j]<<endl;
     }
 }
